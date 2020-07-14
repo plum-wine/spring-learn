@@ -1,0 +1,25 @@
+spring:
+  kafka:
+    bootstrap-servers: 127.0.0.1:9092
+    template:
+      default-topic: topic1
+
+    producer:
+      retries: 0
+      # 每次批量发送的消息数量
+      batch-size: 16384
+      buffer-memory: 33554432
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+      properties:
+        linger.ms: 1
+
+    consumer:
+      enable-auto-commit: true
+      auto-commit-interval: 100ms
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      properties:
+        session.timeout.ms: 15000
+      group-id: group-1
