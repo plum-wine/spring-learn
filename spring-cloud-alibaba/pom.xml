@@ -7,9 +7,9 @@
         <artifactId>spring-learn</artifactId>
         <version>1.0.0</version>
     </parent>
-    <artifactId>springcloud-alibaba</artifactId>
+    <artifactId>spring-cloud-alibaba</artifactId>
     <version>1.0.0</version>
-    <name>springcloud-alibaba</name>
+    <name>spring-cloud-alibaba</name>
     <description>Demo project for Spring Boot</description>
 
     <properties>
