@@ -4,17 +4,12 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.github</groupId>
-        <artifactId>spring-learn</artifactId>
+        <artifactId>spring-boot-app</artifactId>
         <version>1.0.0</version>
     </parent>
-    <artifactId>spring-boot-app</artifactId>
+    <artifactId>spring-boot-web</artifactId>
     <version>1.0.0</version>
-    <packaging>pom</packaging>
-
-    <modules>
-        <module>spring-boot-foobar</module>
-        <module>spring-boot-web</module>
-    </modules>
+    <name>spring-boot-web</name>
 
     <properties>
         <java.version>1.8</java.version>
@@ -23,22 +18,20 @@
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter</artifactId>
+            <artifactId>spring-boot-starter-aop</artifactId>
         </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
+
+        <!-- TestNG -->
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+            <version>6.14.3</version>
             <scope>test</scope>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.junit.vintage</groupId>
-                    <artifactId>junit-vintage-engine</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
     </dependencies>
 
