@@ -1,4 +1,4 @@
-package com.hang.project;
+package com.github;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;

@@ -5,9 +5,7 @@
     <artifactId>spring-boot-docker-maven</artifactId>
     <version>1.0.0</version>
     <packaging>jar</packaging>
-
     <name>spring-boot-docker-maven</name>
-    <description>使用maven-docker插件运行/打包</description>
 
     <parent>
         <groupId>com.github</groupId>
@@ -85,5 +83,4 @@
             </plugin>
         </plugins>
     </build>
-
 </project>
