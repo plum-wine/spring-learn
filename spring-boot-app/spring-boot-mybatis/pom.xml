@@ -5,9 +5,7 @@
     <artifactId>spring-boot-mybatis-mysql</artifactId>
     <version>1.0.0</version>
     <packaging>jar</packaging>
-
-    <name>spring-boot-mybatis-mysql</name>
-    <description>Spring Boot 整合MyBatis连接MySQL数据库</description>
+    <name>spring-boot-mybatis</name>
 
     <parent>
         <groupId>com.github</groupId>

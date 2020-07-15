@@ -30,7 +30,7 @@ public class DruidConfiguration {
         servletRegistrationBean.addInitParameter("deny", "192.168.1.100");
         // 登录查看信息的账号密码.
         servletRegistrationBean.addInitParameter("loginUsername", "druid");
-        servletRegistrationBean.addInitParameter("loginPassword", "zhanghang");
+        servletRegistrationBean.addInitParameter("loginPassword", "druid");
         // 是否能够重置数据.
         servletRegistrationBean.addInitParameter("resetEnable", "false");
         return servletRegistrationBean;
@@ -51,9 +51,9 @@ public class DruidConfiguration {
         return new PersistenceExceptionTranslationPostProcessor();
     }
 
-    // 配置数据库的基本链接信息
-    @Bean(name = "dataSource")
+
     @Primary
+    @Bean(name = "dataSource")
     // 可以在application.properties中直接导入
     @ConfigurationProperties(prefix = "senior.datasource")
     public DataSource dataSource() {
@@ -66,7 +66,7 @@ public class DruidConfiguration {
         bean.setDataSource(dataSource);
         PathMatchingResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
         bean.setMapperLocations(resolver.getResources("classpath:/mapper/*.xml"));
-        bean.setTypeAliasesPackage("com.hang.project.entity");
+        bean.setTypeAliasesPackage("com.github.entity");
         bean.setConfigLocation(new ClassPathResource("mybatis-config.xml"));
         return bean;
     }
