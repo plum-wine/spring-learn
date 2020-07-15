@@ -10,10 +10,10 @@ import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 @EnableFeignClients
 @SpringCloudApplication
 @ComponentScan(basePackages = "com.github")
-public class ProviderServiceApplication {
+public class FeignServiceApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(ProviderServiceApplication.class, args);
+        SpringApplication.run(FeignServiceApplication.class, args);
     }
 
     @Bean

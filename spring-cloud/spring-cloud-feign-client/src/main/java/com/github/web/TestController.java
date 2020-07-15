@@ -37,13 +37,12 @@ public class TestController {
 
     /**
      * 声明式REST客户端，伪RPC的方式
-     * @return
      */
-    @GetMapping("/nodeTwo")
-    public String sleuth1() {
-        String nodeOne = localHelloClient.nodeOne();
-        log.info("result:{}", nodeOne);
-        return "nodeTwo";
+    @GetMapping("/local")
+    public String local() {
+        String message = localHelloClient.message("local");
+        log.info("result:{}", message);
+        return "local";
     }
 
     /**
@@ -57,14 +56,14 @@ public class TestController {
         String result = restTemplate.getForObject("http://localhost:8080/hello", String.class);
         log.info("result:{}", result);
         // 第二种方式
-        ServiceInstance serviceInstance = loadBalancerClient.choose("PROVIDER-SERVICE");
+        ServiceInstance serviceInstance = loadBalancerClient.choose("FEIGN-SERVICE");
         String host = serviceInstance.getHost();
         int port = serviceInstance.getPort();
         String url = String.format("http://%s:%s/hello", host, port);
         String result2 = restTemplate.getForObject(url, String.class);
         log.info("result2:{}", result2);
         // 第三种方式
-        String result3 = restTemplateAuto.getForObject("http://PROVIDER-SERVICE/hello", String.class);
+        String result3 = restTemplateAuto.getForObject("http://FEIGN-SERVICE/hello", String.class);
         log.info("result3:{}", result3);
     }
 

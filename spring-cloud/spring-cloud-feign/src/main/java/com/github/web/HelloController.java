@@ -4,11 +4,14 @@ import com.github.entity.Request;
 import com.github.entity.Response;
 import com.github.service.HelloClient;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
-import org.springframework.cloud.context.config.annotation.RefreshScope;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.lang.invoke.MethodHandles;
 
 /**
  * @author hangs.zhang
@@ -16,9 +19,10 @@ import org.springframework.web.bind.annotation.RestController;
  * *****************
  * function:
  */
-@RefreshScope
 @RestController
 public class HelloController implements HelloClient {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
     @GetMapping("/hello")
     public String hello() {
@@ -39,7 +43,7 @@ public class HelloController implements HelloClient {
         try {
             Thread.sleep(2000);
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            LOGGER.error("sleep error", e);
         }
         Response response = new Response();
         response.setCode(200);
