@@ -1,6 +1,0 @@
-server:
-  port: 8080
-spring:
-  data:
-    mongodb:
-      uri: mongodb://106.13.47.65:27017/webflux

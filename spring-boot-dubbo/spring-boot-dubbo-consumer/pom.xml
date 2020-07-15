@@ -40,7 +40,7 @@
         </dependency>
         <dependency>
             <groupId>com.github</groupId>
-            <artifactId>springboot-dubbo-api</artifactId>
+            <artifactId>spring-boot-dubbo-api</artifactId>
             <version>1.0.0</version>
         </dependency>
     </dependencies>
