@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
  * *****************
  * function: fallback代表失败之后回调
  */
-@FeignClient(name = "PROVIDER-SERVICE", fallback = HelloClientFallback.class)
+@FeignClient(name = "FEIGN-SERVICE", fallback = HelloClientFallback.class)
 public interface HelloClient {
 
     @GetMapping("/say")

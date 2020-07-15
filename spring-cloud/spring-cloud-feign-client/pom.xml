@@ -5,9 +5,7 @@
     <artifactId>spring-cloud-feign-client</artifactId>
     <version>1.0.0</version>
     <packaging>jar</packaging>
-
-    <name>spring-cloud-service-consumer</name>
-    <description>Spring Cloud 消费者</description>
+    <name>spring-cloud-feign-client</name>
 
     <parent>
         <groupId>com.github</groupId>
@@ -33,9 +31,12 @@
             <artifactId>spring-cloud-starter-netflix-hystrix</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+        <dependency>
             <groupId>com.github</groupId>
             <artifactId>spring-cloud-api</artifactId>
-            <version>1.0.0</version>
         </dependency>
     </dependencies>
 </project>
