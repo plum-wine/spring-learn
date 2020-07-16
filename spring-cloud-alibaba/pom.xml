@@ -17,7 +17,7 @@
     </properties>
 
     <modules>
-        <module>spring-cloud-nacos</module>
+
     </modules>
 
     <dependencies>
