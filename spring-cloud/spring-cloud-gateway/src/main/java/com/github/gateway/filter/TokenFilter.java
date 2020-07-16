@@ -23,6 +23,9 @@ import java.util.Objects;
  * @date 2020/07/15 23:35
  * *****************
  * function:
+ * GlobalFilter, 全局过滤器，不需要在配置文件中配置，作用在所有的路由上，
+ * 最终通过GatewayFilterAdapter包装成GatewayFilterChain可识别的过滤器，
+ * 它为请求业务以及路由的URI转换为真实业务服务的请求地址的核心过滤器，不需要配置，系统初始化时加载，并作用在每个路由上.
  */
 @Order(1)
 @Component
