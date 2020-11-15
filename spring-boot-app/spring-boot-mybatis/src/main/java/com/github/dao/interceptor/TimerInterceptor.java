@@ -26,14 +26,14 @@ import java.util.Properties;
  * @date 2018/11/18
  * *****************
  * function:
- *
+ * <p>
  * 数据库操作性能拦截器,记录耗时
  * Intercepts定义Signature数组,因此可以拦截多个,但是只能拦截类型为
  * Executor
  * ParameterHandler
  * StatementHandler
  * ResultSetHandler
- *
+ * <p>
  * 配置Druid之后失效
  */
 @Slf4j

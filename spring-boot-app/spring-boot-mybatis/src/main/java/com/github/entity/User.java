@@ -17,7 +17,7 @@ public class User {
 
     private String password;
 
-    // 业务逻辑：主页文章，与user一一对应
+    // 业务逻辑: 主页文章, 与user一一对应
     private HomePage article;
 
 }

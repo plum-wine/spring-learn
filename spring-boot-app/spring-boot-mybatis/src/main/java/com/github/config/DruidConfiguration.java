@@ -16,6 +16,7 @@ import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor;
 
 import javax.sql.DataSource;
+import java.io.IOException;
 
 @Configuration
 public class DruidConfiguration {
@@ -52,16 +53,20 @@ public class DruidConfiguration {
     }
 
 
+    /**
+     * ConfigurationProperties的内容可以在application.properties中直接导入
+     *
+     * @return DataSource
+     */
     @Primary
     @Bean(name = "dataSource")
-    // 可以在application.properties中直接导入
     @ConfigurationProperties(prefix = "senior.datasource")
     public DataSource dataSource() {
         return DataSourceBuilder.create().type(com.alibaba.druid.pool.DruidDataSource.class).build();
     }
 
     @Bean
-    public SqlSessionFactoryBean sqlSessionFactory(@Qualifier("dataSource") DataSource dataSource) throws Exception {
+    public SqlSessionFactoryBean sqlSessionFactory(@Qualifier("dataSource") DataSource dataSource) throws IOException {
         SqlSessionFactoryBean bean = new SqlSessionFactoryBean();
         bean.setDataSource(dataSource);
         PathMatchingResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();

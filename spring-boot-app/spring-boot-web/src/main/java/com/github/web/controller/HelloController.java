@@ -145,7 +145,6 @@ public class HelloController {
 
     @GetMapping("/test")
     public String test() {
-        Semaphore semaphore = new Semaphore(3);
         return test;
     }
 
