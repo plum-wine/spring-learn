@@ -69,7 +69,7 @@ public class HelloController {
 
     @StatisticsTime("prefix")
     @GetMapping("/statisticsTime")
-    public BaseResult<String> StatisticsTime() {
+    public BaseResult<String> statisticsTime() {
         return BaseResult.success("StatisticsTime");
     }
 
