@@ -1,15 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
+    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+    <property name="LOG_DIR" value="/Users/zhanghang/app/web-app/logs"/>
 
-    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
-        <!-- encoder 默认配置为PatternLayoutEncoder -->
+    <appender name="ROOT" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <encoder>
             <pattern>%d{HH:mm:ss.SSS} [%thread] %level -> %msg%n</pattern>
         </encoder>
+        <file>${LOG_DIR}/catalina.out</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_HOME}/catalina.%d{yyyy-MM-dd}.out</fileNamePattern>
+            <maxHistory>7</maxHistory>
+        </rollingPolicy>
     </appender>
 
-    <root level="info">
-        <appender-ref ref="CONSOLE"/>
+    <root level="INFO">
+        <appender-ref ref="ROOT"/>
     </root>
-
 </configuration>
