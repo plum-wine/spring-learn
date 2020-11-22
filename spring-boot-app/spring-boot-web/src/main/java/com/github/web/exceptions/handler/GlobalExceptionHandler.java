@@ -1,6 +1,6 @@
 package com.github.web.exceptions.handler;
 
-import com.github.web.context.SnapshotContext;
+import com.github.web.exceptions.context.SnapshotContext;
 import com.github.web.enums.ResultEnum;
 import com.github.web.exceptions.GlobalException;
 import com.github.web.response.BaseResult;

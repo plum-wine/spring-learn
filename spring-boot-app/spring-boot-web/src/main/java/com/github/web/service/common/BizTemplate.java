@@ -1,7 +1,7 @@
-package com.github.web.common;
+package com.github.web.service.common;
 
-import com.github.web.common.monitor.M;
-import com.github.web.common.monitor.MRegistry;
+import com.github.web.service.common.monitor.M;
+import com.github.web.service.common.monitor.MRegistry;
 import com.github.web.exceptions.GlobalException;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;

@@ -1,7 +1,7 @@
 package com.github.web.service;
 
-import com.github.web.common.BizTemplate;
-import com.github.web.common.monitor.Monitors;
+import com.github.web.service.common.BizTemplate;
+import com.github.web.service.common.monitor.Monitors;
 import com.github.web.exceptions.GlobalException;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;

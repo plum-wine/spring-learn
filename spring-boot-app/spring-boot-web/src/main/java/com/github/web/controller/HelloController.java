@@ -5,7 +5,7 @@ import com.github.web.annotations.AccessLimit;
 import com.github.web.annotations.Session;
 import com.github.web.aop.annotations.StatisticsTime;
 import com.github.web.config.ApplicationConfig;
-import com.github.web.context.SnapshotContext;
+import com.github.web.exceptions.context.SnapshotContext;
 import com.github.web.enums.ResultEnum;
 import com.github.web.exceptions.GlobalException;
 import com.github.web.response.BaseResult;
@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.Objects;
-import java.util.concurrent.Semaphore;
 
 /**
  * @author hangs.zhang

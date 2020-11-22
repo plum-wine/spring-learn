@@ -62,13 +62,16 @@
                 <excludes>
                     <!-- maven在打包时不会复制这些文件, 不希望把application-dev.properties也包含在prod的jar包 -->
                     <exclude>application*.properties</exclude>
+                    <exclude>logback*.xml</exclude>
                 </excludes>
             </resource>
             <resource>
                 <directory>src/main/resources</directory>
                 <filtering>true</filtering>
                 <includes>
+                    <include>logback.xml</include>
                     <include>application.properties</include>
+                    <include>logback-${profile.active}.xml</include>
                     <include>application-${profile.active}.properties</include>
                 </includes>
             </resource>

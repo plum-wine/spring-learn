@@ -6,8 +6,8 @@
     <version>1.0.0</version>
     <packaging>jar</packaging>
 
-    <name>spring-boot-kafka</name>
-    <description>Spring Boot与 Kafka 集成</description>
+    <name>spring-boot-mq</name>
+    <description>Spring Boot与 MQ 集成</description>
 
     <parent>
         <groupId>com.github</groupId>

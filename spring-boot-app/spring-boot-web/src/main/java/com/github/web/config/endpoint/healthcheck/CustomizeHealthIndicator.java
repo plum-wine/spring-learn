@@ -1,4 +1,4 @@
-package com.github.web.healthcheck;
+package com.github.web.config.endpoint.healthcheck;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.actuate.health.AbstractHealthIndicator;
@@ -22,7 +22,7 @@ public class CustomizeHealthIndicator extends AbstractHealthIndicator {
     @Override
     protected void doHealthCheck(Health.Builder builder) {
         if (code != 0) {
-            builder.down().withDetail("code", code).withDetail("version", VERSION).build();
+	        builder.down().withDetail("code", code).withDetail("version", VERSION).build();
         }
         builder.withDetail("code", code).withDetail("version", VERSION).up().build();
     }

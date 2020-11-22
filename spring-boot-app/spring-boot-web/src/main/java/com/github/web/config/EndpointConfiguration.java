@@ -1,6 +1,6 @@
 package com.github.web.config;
 
-import com.github.web.endpoint.TestEndpoint;
+import com.github.web.config.endpoint.TestEndpoint;
 import org.springframework.boot.actuate.autoconfigure.endpoint.condition.ConditionalOnAvailableEndpoint;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;

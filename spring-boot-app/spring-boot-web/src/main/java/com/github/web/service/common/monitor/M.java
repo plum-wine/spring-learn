@@ -1,4 +1,4 @@
-package com.github.web.common.monitor;
+package com.github.web.service.common.monitor;
 
 
 /**

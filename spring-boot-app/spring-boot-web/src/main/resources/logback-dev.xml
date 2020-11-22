@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
-    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
-    <property name="LOG_DIR" value="/Users/zhanghang/app/web-app/logs"/>
+    <property name="LOG_DIR" value="${logs.dir}"/>
 
     <appender name="ROOT" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <encoder>
@@ -14,7 +13,28 @@
         </rollingPolicy>
     </appender>
 
+    <appender name="controllerLogger" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_HOME}/controller-access.log</file>
+        <encoder>
+            <pattern>${PATTERN}</pattern>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>INFO</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_HOME}/controller-access.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>7</maxHistory>
+        </rollingPolicy>
+    </appender>
+
+    <!-- root日志 -->
     <root level="INFO">
         <appender-ref ref="ROOT"/>
     </root>
+    <!-- 请求日志 additivity=false意思是不向上传递-->
+    <logger name="controllerLogger" additivity="false" level="INFO">
+        <appender-ref ref="controllerLogger"/>
+    </logger>
 </configuration>

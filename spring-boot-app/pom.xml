@@ -16,8 +16,8 @@
         <module>spring-boot-web</module>
         <module>spring-boot-webflux</module>
         <module>spring-boot-redis</module>
-        <module>spring-boot-mybatis</module>
-        <module>spring-boot-kafka</module>
+        <module>spring-boot-database</module>
+        <module>spring-boot-mq</module>
         <module>spring-boot-websocket</module>
         <module>spring-boot-docker-maven</module>
     </modules>

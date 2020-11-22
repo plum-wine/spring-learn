@@ -1,4 +1,4 @@
-package com.github.web.endpoint;
+package com.github.web.config.endpoint;
 
 import com.google.common.collect.Maps;
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
@@ -14,13 +14,13 @@ import java.util.Map;
  */
 @Endpoint(id = "customize")
 public class TestEndpoint {
-
-    @ReadOperation
-    public Map<String, String> test() {
-        Map<String, String> map = Maps.newHashMap();
-        map.put("name", "foobar");
-        map.put("company", "qunar");
-        return map;
-    }
-
+	
+	@ReadOperation
+	public Map<String, String> test() {
+		Map<String, String> map = Maps.newHashMap();
+		map.put("name", "foobar");
+		map.put("message", "foobar");
+		return map;
+	}
+	
 }
