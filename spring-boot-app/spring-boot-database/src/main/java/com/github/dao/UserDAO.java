@@ -28,4 +28,6 @@ public interface UserDAO {
 
     int delete(int uid);
 
+    int deleteAll();
+
 }

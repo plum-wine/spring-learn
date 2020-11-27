@@ -1,12 +1,14 @@
 package com.github;
 
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class SpringBootKafkaApplication {
+@MapperScan(basePackages = "com.github.dao")
+public class SpringBootDatabaseApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(SpringBootKafkaApplication.class, args);
+        SpringApplication.run(SpringBootDatabaseApplication.class, args);
     }
 }

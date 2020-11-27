@@ -8,18 +8,21 @@
         select * from user
     </select>
 
-    <select id="selectUserByUid" parameterType="Integer" resultType="com.github.entity.User">
+    <select id="selectUserByUid" parameterType="java.lang.Integer" resultType="com.github.entity.User">
         select
-          u.username as "username",
-          a.title as "article.title"
-        from user as u
+        u.username as "username",
+        a.title as "article.title"
+        from
+        user as u
         inner join
         article as a
-        on u.uid = a.author_id
-        where u.uid = #{uid};
+        on
+        u.uid = a.author_id
+        where
+        u.uid = #{uid};
     </select>
 
-    <select id="selectUserByUsername" parameterType="String" resultType="com.github.entity.User">
+    <select id="selectUserByUsername" parameterType="java.lang.String" resultType="com.github.entity.User">
         select * from user where username = #{username}
     </select>
 
@@ -30,6 +33,10 @@
 
     <delete id="delete" parameterType="com.github.entity.User">
         delete from user where uid = #{uid}
+    </delete>
+
+    <delete id="deleteAll">
+        delete from user
     </delete>
 
 </mapper>
