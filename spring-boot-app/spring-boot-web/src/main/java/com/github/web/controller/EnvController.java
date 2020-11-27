@@ -17,7 +17,7 @@ public class EnvController {
     @Value("${env:default}")
     private String env;
 
-    @Value("${server.tomcat.basedir}")
+    @Value("${server.tomcat.basedir:default}")
     private String basedir;
 
     @GetMapping("/env")
