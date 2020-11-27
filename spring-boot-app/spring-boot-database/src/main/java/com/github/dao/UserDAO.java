@@ -17,6 +17,11 @@ import java.util.Map;
 @Repository
 public interface UserDAO {
 
+    /**
+     * 查询结果自动映射为map
+     *
+     * @return java.util.Map<java.lang.Integer, com.github.entity.User>
+     */
     @MapKey("uid")
     Map<Integer, User> selectAllUser();
 
