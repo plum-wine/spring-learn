@@ -12,7 +12,6 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>spring-boot-foobar</module>
         <module>spring-boot-groovy</module>
         <module>spring-boot-web</module>
         <module>spring-boot-redis</module>

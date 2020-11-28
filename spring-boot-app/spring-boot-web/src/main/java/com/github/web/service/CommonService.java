@@ -19,9 +19,9 @@ public class CommonService {
     public UserVO getUserVO() {
         UserVO userVO = new UserVO();
         userVO.setId(1);
-        userVO.setEmail("1078504296@qq.com");
-        userVO.setUsername("hangs.zhang");
-        userVO.setPassword("123456");
+        userVO.setEmail("foobar@foobar.com");
+        userVO.setUsername("foobar");
+        userVO.setPassword("foobar");
         return userVO;
     }
 
