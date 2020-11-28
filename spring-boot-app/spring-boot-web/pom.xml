@@ -14,11 +14,7 @@
     <properties>
         <java.version>1.8</java.version>
         <app.name>web-app</app.name>
-        <docker.run.cmd>docker run --name web-app
-            -d
-            -p 8080:8080
-            -t image/web-app
-            --restart=always
+        <docker.run.cmd>docker run --name web-app -d -p 8080:8080 -t image/spring-boot-web --restart=always
         </docker.run.cmd>
     </properties>
 
@@ -82,7 +78,10 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
-            <!-- Docker 镜像构建插件 -->
+            <!-- 打包构建镜像 -->
+            <!-- mvn clean package docker:build -->
+            <!-- 运行 -->
+            <!-- docker run &#45;&#45;name web-app -d -p 8080:8080 -t image/spring-boot-web &#45;&#45;restart=always -->
             <plugin>
                 <groupId>com.spotify</groupId>
                 <artifactId>docker-maven-plugin</artifactId>
