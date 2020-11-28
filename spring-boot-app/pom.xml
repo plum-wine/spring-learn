@@ -20,7 +20,6 @@
         <module>spring-boot-redis</module>
         <module>spring-boot-mq</module>
         <module>spring-boot-database</module>
-        <module>spring-boot-docker-maven</module>
     </modules>
 
     <properties>

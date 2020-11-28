@@ -14,6 +14,12 @@
     <properties>
         <java.version>1.8</java.version>
         <app.name>web-app</app.name>
+        <docker.run.cmd>docker run --name web-app
+            -d
+            -p 8080:8080
+            -t image/web-app
+            --restart=always
+        </docker.run.cmd>
     </properties>
 
     <dependencies>
@@ -26,17 +32,10 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
-
-        <!-- TestNG -->
-        <dependency>
-            <groupId>org.testng</groupId>
-            <artifactId>testng</artifactId>
-            <version>6.14.3</version>
-            <scope>test</scope>
-        </dependency>
     </dependencies>
 
     <profiles>
+        <!-- 通过 profile 来指定部署服务器 -->
         <profile>
             <id>dev</id>
             <activation>
@@ -44,12 +43,14 @@
             </activation>
             <properties>
                 <profile.active>dev</profile.active>
+                <ip.address>127.0.0.1</ip.address>
             </properties>
         </profile>
         <profile>
             <id>prod</id>
             <properties>
                 <profile.active>prod</profile.active>
+                <ip.address>127.0.0.1</ip.address>
             </properties>
         </profile>
     </profiles>
@@ -80,6 +81,27 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            <!-- Docker 镜像构建插件 -->
+            <plugin>
+                <groupId>com.spotify</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+                <version>1.0.0</version>
+                <configuration>
+                    <!-- 镜像名称 -->
+                    <imageName>image/${project.artifactId}</imageName>
+                    <!-- 依赖java镜像 -->
+                    <baseImage>java</baseImage>
+                    <entryPoint>["java", "-jar", "/${project.build.finalName}.jar"]</entryPoint>
+                    <dockerHost>http://${ip.address}:2375</dockerHost>
+                    <resources>
+                        <resource>
+                            <targetPath>/</targetPath>
+                            <directory>${project.build.directory}</directory>
+                            <include>${project.build.finalName}.jar</include>
+                        </resource>
+                    </resources>
+                </configuration>
             </plugin>
         </plugins>
     </build>
