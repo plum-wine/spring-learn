@@ -11,4 +11,5 @@ public class SpringBootDatabaseApplication {
     public static void main(String[] args) {
         SpringApplication.run(SpringBootDatabaseApplication.class, args);
     }
+
 }

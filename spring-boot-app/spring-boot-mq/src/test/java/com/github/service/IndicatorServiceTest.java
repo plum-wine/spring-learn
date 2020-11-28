@@ -1,6 +1,6 @@
 package com.github.service;
 
-import com.github.SpringBootKafkaApplicationTests;
+import com.github.SpringBootMqApplicationTests;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  * *****************
  * function:
  */
-public class IndicatorServiceTest extends SpringBootKafkaApplicationTests {
+public class IndicatorServiceTest extends SpringBootMqApplicationTests {
 
     @Autowired
     private IndicatorService indicatorService;

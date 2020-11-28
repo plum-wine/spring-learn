@@ -4,7 +4,7 @@ import com.github.SpringBootDatabaseApplicationTests;
 import com.github.entity.UserDO;
 import com.github.enums.UserState;
 import org.junit.Assert;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public class UserDAOTest extends SpringBootDatabaseApplicationTests {
@@ -13,8 +13,9 @@ public class UserDAOTest extends SpringBootDatabaseApplicationTests {
     private UserDAO userDAO;
 
     @Test
-    void selectUserByUid() {
+    public void selectUserByUid() {
         UserDO userDO = userDAO.selectUserByUid(1);
         Assert.assertEquals(userDO.getUserState(), UserState.ACTIVE);
     }
+
 }
