@@ -9,7 +9,7 @@ import lombok.Data;
  * function: 主页
  */
 @Data
-public class HomePage {
+public class HomePageDO {
 
     private Integer id;
 

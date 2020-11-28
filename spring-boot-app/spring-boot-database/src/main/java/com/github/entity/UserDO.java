@@ -1,5 +1,6 @@
 package com.github.entity;
 
+import com.github.enums.UserState;
 import lombok.Data;
 
 /**
@@ -9,7 +10,7 @@ import lombok.Data;
  * function:
  */
 @Data
-public class User {
+public class UserDO {
 
     private Integer uid;
 
@@ -17,7 +18,11 @@ public class User {
 
     private String password;
 
-    // 业务逻辑: 主页文章, 与user一一对应
-    private HomePage article;
+    private UserState userState;
+
+    /**
+     * 业务逻辑: 主页文章, 与user一一对应
+     */
+    private HomePageDO homePage;
 
 }

@@ -1,11 +1,13 @@
 package com.github.dao;
 
-import com.github.entity.User;
+import com.github.entity.UserDO;
 import org.apache.ibatis.annotations.MapKey;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * @author hangs.zhang
@@ -23,13 +25,20 @@ public interface UserDAO {
      * @return java.util.Map<java.lang.Integer, com.github.entity.User>
      */
     @MapKey("uid")
-    Map<Integer, User> selectAllUser();
+    Map<Integer, UserDO> selectAllUser();
 
-    User selectUserByUid(Integer uid);
+    List<UserDO> selectUsersByIds(@Param("userIds") Set<Integer> userIds);
+    List<UserDO> selectUsersByIds2(@Param("userIds") Set<Integer> userIds);
 
-    User selectUserByUsername(String username);
+    List<UserDO> selectUsers(@Param("query") UserDO query);
 
-    int insert(@Param("user") User user);
+    UserDO selectUserByUid(Integer uid);
+
+    UserDO selectUserByUsername(String username);
+
+    int insert(@Param("user") UserDO user);
+
+    int update(@Param("user") UserDO user);
 
     int delete(int uid);
 

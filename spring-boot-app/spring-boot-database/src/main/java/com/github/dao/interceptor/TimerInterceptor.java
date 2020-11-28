@@ -1,6 +1,5 @@
 package com.github.dao.interceptor;
 
-import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.executor.Executor;
 import org.apache.ibatis.mapping.BoundSql;
 import org.apache.ibatis.mapping.MappedStatement;
@@ -12,6 +11,8 @@ import org.apache.ibatis.session.Configuration;
 import org.apache.ibatis.session.ResultHandler;
 import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.type.TypeHandlerRegistry;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import java.text.DateFormat;
@@ -26,17 +27,13 @@ import java.util.Properties;
  * @date 2018/11/18
  * *****************
  * function:
- * <p>
  * 数据库操作性能拦截器,记录耗时
  * Intercepts定义Signature数组,因此可以拦截多个,但是只能拦截类型为
  * Executor
  * ParameterHandler
  * StatementHandler
  * ResultSetHandler
- * <p>
- * 配置Druid之后失效
  */
-@Slf4j
 @Component
 @Intercepts({
         @Signature(type = Executor.class, method = "query", args = {MappedStatement.class, Object.class, RowBounds.class, ResultHandler.class}),
@@ -45,6 +42,8 @@ import java.util.Properties;
 public class TimerInterceptor implements Interceptor {
 
     private static final DateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+    private static final Logger LOGGER = LoggerFactory.getLogger("SQL");
 
     @Override
     public Object intercept(Invocation invocation) throws Throwable {
@@ -63,7 +62,7 @@ public class TimerInterceptor implements Interceptor {
         Object result = invocation.proceed();
         long end = System.currentTimeMillis();
         long timing = end - start;
-        log.info("id:{} - Sql:{} - cost:{}ms", statementId, sql, timing);
+        LOGGER.info("id:{} - Sql:{} - cost:{}ms", statementId, sql, timing);
         return result;
     }
 
@@ -84,8 +83,7 @@ public class TimerInterceptor implements Interceptor {
         List<ParameterMapping> parameterMappings = boundSql.getParameterMappings();
         TypeHandlerRegistry typeHandlerRegistry = configuration.getTypeHandlerRegistry();
         if (parameterMappings != null) {
-            for (int i = 0; i < parameterMappings.size(); i++) {
-                ParameterMapping parameterMapping = parameterMappings.get(i);
+            for (ParameterMapping parameterMapping : parameterMappings) {
                 if (parameterMapping.getMode() != ParameterMode.OUT) {
                     Object value;
                     String propertyName = parameterMapping.getProperty();
@@ -105,7 +103,6 @@ public class TimerInterceptor implements Interceptor {
         }
         return sql;
     }
-
 
     private String replacePlaceholder(String sql, Object propertyValue) {
         String result;

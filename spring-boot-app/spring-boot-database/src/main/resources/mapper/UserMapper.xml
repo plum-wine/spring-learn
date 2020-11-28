@@ -4,34 +4,106 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.github.dao.UserDAO">
 
+    <sql id="allColumn">
+        uid, username, password
+    </sql>
+
     <select id="selectAllUser" resultType="java.util.Map">
         select * from user
     </select>
 
-    <select id="selectUserByUid" parameterType="java.lang.Integer" resultType="com.github.entity.User">
+    <select id="selectUserByUid" parameterType="java.lang.Integer" resultType="com.github.entity.UserDO">
         select
-        u.username as "username",
-        a.title as "article.title"
+            u.username as "username",
+            u.user_state as "userState",
+            h.title as "home_page.title"
         from
-        user as u
+            user as u
         inner join
-        article as a
+            home_page as h
         on
-        u.uid = a.author_id
+            u.uid = h.author_id
         where
-        u.uid = #{uid};
+            u.uid = #{uid};
     </select>
 
-    <select id="selectUserByUsername" parameterType="java.lang.String" resultType="com.github.entity.User">
+    <select id="selectUserByUsername" parameterType="java.lang.String" resultType="com.github.entity.UserDO">
         select * from user where username = #{username}
     </select>
 
-    <insert id="insert" parameterType="com.github.entity.User">
+    <select id="selectUsers" resultType="com.github.entity.UserDO">
+        select
+            <include refid="allColumn"/>
+        from user
+        <where>
+            <if test="query.username != null">
+                <bind name="usernamePattern" value="'%' + query.username +'%'"/>
+                username like #{usernamePattern}
+            </if>
+            <!-- 如果前面没有条件, and会自动去除 -->
+            <if test="query.uid != null">and uid=#{query.uid}</if>
+        </where>
+        order by uid desc
+    </select>
+
+    <select id="selectUsersByIds" resultType="com.github.entity.UserDO">
+        select
+            <include refid="allColumn"/>
+        from
+            user
+        <where>
+            <!-- 如果userIds为null,那么会查询所有 -->
+            <if test='userIds != null and userIds.size() > 0'>
+                uid in
+                <foreach collection="userIds" index="index" item="item" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+        </where>
+    </select>
+
+    <select id="selectUsersByIds2" resultType="com.github.entity.UserDO">
+        select
+            <include refid="allColumn"/>
+        from
+            user
+        <where>
+            <choose>
+                <when test='userIds != null and userIds.size() > 0'>
+                    uid in
+                    <foreach collection="userIds" index="index" item="item" open="(" separator="," close=")">
+                        #{item}
+                    </foreach>
+                </when>
+                <when test='false'>
+                    uid = 100
+                </when>
+                <otherwise>
+                    uid = -1
+                </otherwise>
+            </choose>
+        </where>
+    </select>
+
+    <insert id="insert" parameterType="com.github.entity.UserDO">
         insert into user(username, password)
         values (#{user.username}, #{user.password})
     </insert>
 
-    <delete id="delete" parameterType="com.github.entity.User">
+    <update id="update">
+        update user
+        <set>
+            <if test="user.username != null">
+                username = #{user.username}
+            </if>
+            <if test="user.password != null">
+                password = #{user.password}
+            </if>
+        </set>
+        where uid = #{user.uid}
+    </update>
+
+    <delete id="delete" parameterType="com.github.entity.UserDO">
         delete from user where uid = #{uid}
     </delete>
 
