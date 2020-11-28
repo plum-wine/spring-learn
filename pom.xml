@@ -47,6 +47,7 @@
 
     <properties>
         <java.version>1.8</java.version>
+        <project.release.version>1.0.0</project.release.version>
         <spring-cloud.version>Hoxton.SR6</spring-cloud.version>
         <spring-cloud-alibaba.version>2.2.1.RELEASE</spring-cloud-alibaba.version>
         <skipTests>true</skipTests>
