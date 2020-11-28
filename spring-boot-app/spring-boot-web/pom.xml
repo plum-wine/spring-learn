@@ -92,6 +92,7 @@
                     <!-- 依赖java镜像 -->
                     <baseImage>java</baseImage>
                     <entryPoint>["java", "-jar", "/${project.build.finalName}.jar"]</entryPoint>
+                    <!-- Docker需要开启remove api的端口 -->
                     <dockerHost>http://${ip.address}:2375</dockerHost>
                     <resources>
                         <resource>
