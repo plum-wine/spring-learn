@@ -85,9 +85,9 @@
         </where>
     </select>
 
-    <insert id="insert" parameterType="com.github.entity.UserDO">
-        insert into user(username, password)
-        values (#{user.username}, #{user.password})
+    <insert id="insert" parameterType="com.github.entity.UserDO" useGeneratedKeys="true" keyProperty="uid">
+        insert into user(username, password, user_state)
+        values (#{user.username}, #{user.password}, #{user.userState})
     </insert>
 
     <update id="update">

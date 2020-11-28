@@ -2,7 +2,7 @@ package com.github.enums;
 
 public enum UserState implements BaseOrderEnum<UserState> {
     ACTIVE(1, "ACTIVE"),
-    BLOCK(2, "BLOCK");
+    BLOCK(-1, "BLOCK");
 
     private final Integer order;
 
