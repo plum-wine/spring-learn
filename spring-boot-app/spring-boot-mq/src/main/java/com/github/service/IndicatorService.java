@@ -10,6 +10,8 @@ import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.support.ProducerListener;
 import org.springframework.stereotype.Service;
 
+import java.lang.invoke.MethodHandles;
+
 /**
  * @author hangs.zhang
  * @date 2019/3/4.
@@ -19,29 +21,28 @@ import org.springframework.stereotype.Service;
 @Service
 public class IndicatorService {
 
-    private Logger LOG = LoggerFactory.getLogger(IndicatorService.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
     private final KafkaTemplate<String, String> kafkaTemplate;
 
     @Autowired
-    public IndicatorService(KafkaTemplate kafkaTemplate) {
+    public IndicatorService(KafkaTemplate<String, String> kafkaTemplate) {
         this.kafkaTemplate = kafkaTemplate;
     }
 
-
     @KafkaListener(topics = {"topic1", "topic2"})
     public void processMessage(ConsumerRecord<Integer, String> record) {
-        LOG.info("processMessage, topic = {}, msg = {}", record.topic(), record.value());
+        LOGGER.info("processMessage, topic = {}, msg = {}", record.topic(), record.value());
     }
 
     public void sendMessage(String topic, String data) {
-        LOG.info("向kafka推送数据:[{}]", data);
+        LOGGER.info("向kafka推送数据:[{}]", data);
         try {
             kafkaTemplate.send(topic, data);
         } catch (Exception e) {
             e.printStackTrace();
-            LOG.error("发送数据出错！！！topic:{}\tdata:{}", topic, data);
-            LOG.error("发送数据出错=====>", e);
+            LOGGER.error("发送数据出错！！！topic:{}\tdata:{}", topic, data);
+            LOGGER.error("发送数据出错=====>", e);
         }
 
         // 消息发送的监听器，用于回调返回信息
