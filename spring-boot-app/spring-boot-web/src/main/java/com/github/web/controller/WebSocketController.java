@@ -1,6 +1,6 @@
-package com.github.web;
+package com.github.web.controller;
 
-import com.github.websocket.WebSocketServer;
+import com.github.web.service.websocket.WebSocketServer;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,7 +17,7 @@ import java.io.IOException;
  * function:
  */
 @Controller
-public class CheckCenterController {
+public class WebSocketController {
 
     /**
      * 页面请求
@@ -42,5 +42,6 @@ public class CheckCenterController {
         }
         return "success # " + cid;
     }
+
 }
 

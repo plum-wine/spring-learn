@@ -15,7 +15,8 @@
         <java.version>1.8</java.version>
         <app.name>web-app</app.name>
         <!-- docker运行镜像的命令 -->
-        <docker.run.cmd>docker run --name web-app -d -p 8080:8080 -t image/spring-boot-web --restart=always</docker.run.cmd>
+        <docker.run.cmd>docker run --name web-app -d -p 8080:8080 -t image/spring-boot-web --restart=always
+        </docker.run.cmd>
     </properties>
 
     <dependencies>
@@ -23,7 +24,14 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-aop</artifactId>
         </dependency>
-
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-websocket</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-thymeleaf</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
