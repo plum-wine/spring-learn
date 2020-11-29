@@ -1,9 +1,9 @@
 package com.github.controller;
 
-import com.github.utils.SpringContextUtils;
+import com.github.service.GroovyBeanCommand;
+import com.github.utils.GroovyContextUtils;
 import groovy.lang.GroovyClassLoader;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.lang.reflect.Method;
 
@@ -11,19 +11,28 @@ import java.lang.reflect.Method;
 @RequestMapping("/groovy")
 public class GroovyController {
 
-    @RequestMapping("/runScript")
-    public Object runScript(String script) throws Exception {
+    @GetMapping("/runScript")
+    public Object runScript(@RequestParam String script) throws Exception {
         if (script != null) {
             // 这里其实就是groovy的api动态的加载生成一个Class, 然后反射生成对象, 然后执行run方法, 最后返回结果
-            // SpringContextUtils.autowireBean可以实现自动注入bean，
             Class<?> clazz = new GroovyClassLoader().parseClass(script);
             Method run = clazz.getMethod("run");
             Object o = clazz.newInstance();
-            SpringContextUtils.autowireBean(o);
             return run.invoke(o);
         } else {
             return "no script";
         }
+    }
+
+    @PostMapping("/command/add")
+    public void addGroovyCommand(@RequestParam String groovyBeanName, @RequestParam String script) {
+        GroovyContextUtils.autowireBean(groovyBeanName, script);
+    }
+
+    @GetMapping("/command/run")
+    public Object runGroovyCommand(@RequestParam String groovyBeanName) {
+        GroovyBeanCommand command = GroovyContextUtils.getBean(groovyBeanName, GroovyBeanCommand.class);
+        return command.run();
     }
 
 }
