@@ -1,6 +1,6 @@
 package com.github.controller.service;
 
-import com.github.controller.response.UserVO;
+import com.github.controller.domain.vo.UserVO;
 import org.springframework.stereotype.Service;
 
 /**

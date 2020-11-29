@@ -2,7 +2,7 @@ package com.github.controller.config;
 
 import com.github.controller.SpringBootWebApplication;
 import com.github.controller.handler.SessionResolver;
-import com.github.controller.interceptors.AccessInterceptor;
+import com.github.controller.handler.interceptors.AccessInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;

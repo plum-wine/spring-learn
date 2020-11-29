@@ -3,7 +3,7 @@ package com.github.controller.exceptions.handler;
 import com.github.controller.exceptions.context.SnapshotContext;
 import com.github.controller.enums.ResultEnum;
 import com.github.controller.exceptions.GlobalException;
-import com.github.controller.response.BaseResult;
+import com.github.controller.domain.vo.BaseResult;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;

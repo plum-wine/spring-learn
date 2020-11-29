@@ -1,13 +1,15 @@
-package com.github.controller.interceptors;
+package com.github.controller.handler.interceptors;
 
 import com.github.controller.annotations.AccessLimit;
 import com.github.controller.enums.ResultEnum;
-import com.github.controller.response.BaseResult;
+import com.github.controller.domain.vo.BaseResult;
 import com.github.controller.utils.JsonUtils;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
@@ -16,6 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.lang.invoke.MethodHandles;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
@@ -25,21 +28,23 @@ import java.util.concurrent.TimeUnit;
  * *****************
  * function:
  */
-@Slf4j
 @Component
 public class AccessInterceptor extends HandlerInterceptorAdapter {
 
-    private LoadingCache<String, Integer> limit = CacheBuilder.newBuilder()
+    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
+
+    private static final LoadingCache<String, Integer> LIMIT = CacheBuilder.newBuilder()
             .expireAfterAccess(5, TimeUnit.SECONDS)
             .build(new CacheLoader<String, Integer>() {
                 @Override
-                public Integer load(String s) throws Exception {
+                public Integer load(String key) throws Exception {
                     return 0;
                 }
             });
 
     @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+    public boolean preHandle(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response,
+                             @NonNull Object handler) throws Exception {
         if (handler instanceof HandlerMethod) {
             HandlerMethod handlerMethod = (HandlerMethod) handler;
             AccessLimit accessLimit = handlerMethod.getMethodAnnotation(AccessLimit.class);
@@ -56,10 +61,9 @@ public class AccessInterceptor extends HandlerInterceptorAdapter {
             } else {
                 // TODO: 2018/11/20
             }
-
             // TODO: 2018/11/20 对maxCount和second的处理
         }
-        log.info("access preHandle return true");
+        LOGGER.info("access preHandle return true");
         return true;
     }
 

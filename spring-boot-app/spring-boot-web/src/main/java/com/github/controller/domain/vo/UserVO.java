@@ -1,4 +1,4 @@
-package com.github.controller.response;
+package com.github.controller.domain.vo;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import lombok.Data;

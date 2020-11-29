@@ -1,7 +1,7 @@
 package com.github.controller.handler;
 
 import com.github.controller.annotations.Session;
-import com.github.controller.response.UserVO;
+import com.github.controller.domain.vo.UserVO;
 import org.springframework.core.MethodParameter;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.support.WebDataBinderFactory;
