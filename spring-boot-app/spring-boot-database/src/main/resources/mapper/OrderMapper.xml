@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.github.dao.OrderDAO">
+
+    <sql id="Base_Column_List">
+        order_id, order_name, order_status, user_id
+    </sql>
+
+    <insert id="insert" parameterType="com.github.entity.OrderDO">
+        insert into t_order(<include refid="Base_Column_List"/>)
+        values(#{order.orderId}, #{order.orderName}, #{order.orderStatus}, #{order.userId})
+    </insert>
+
+    <select id="selectAllByCondition" resultType="com.github.entity.OrderDO">
+        select
+            <include refid="Base_Column_List"/>
+        from
+            t_order
+        <where>
+            <if test="condition.userId != null">
+                and user_id = #{condition.userId, jdbcType=BIGINT}
+            </if>
+            <if test="condition.orderId != null">
+                and order_id = #{condition.orderId, jdbcType=BIGINT}
+            </if>
+            <if test="condition.orderName != null and condition.orderName != ''">
+                and order_name like concat('%',#{condition.orderName,jdbcType=VARCHAR} ,'%')
+            </if>
+            <if test="condition.orderStatus != null">
+                and order_status = #{condition.orderStatus, jdbcType=INTEGER}
+            </if>
+        </where>
+    </select>
+
+</mapper>

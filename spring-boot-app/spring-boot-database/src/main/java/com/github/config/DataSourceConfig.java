@@ -17,7 +17,7 @@ import java.util.Map;
  * *****************
  * function:
  */
-@Configuration
+// @Configuration
 public class DataSourceConfig {
 
     @Value("${spring.datasource.url}")

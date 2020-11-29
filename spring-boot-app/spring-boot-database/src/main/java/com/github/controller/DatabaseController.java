@@ -3,9 +3,12 @@ package com.github.controller;
 import com.github.config.CustomerDatabaseContextHolder;
 import com.github.entity.UserDO;
 import com.github.dao.UserDAO;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.lang.invoke.MethodHandles;
 import java.util.List;
 import java.util.Set;
 
@@ -21,6 +24,8 @@ public class DatabaseController {
 
     @Autowired
     private UserDAO userDAO;
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
     @GetMapping("/selectUserByUid")
     public UserDO selectUserByUid(@RequestParam Integer uid) {
@@ -50,7 +55,8 @@ public class DatabaseController {
 
     @PostMapping("/update")
     public String update(@RequestBody UserDO userDO) {
-        userDAO.update(userDO);
+        int count = userDAO.update(userDO);
+        LOGGER.info("update count : {}", count);
         return "success";
     }
 
