@@ -1,4 +1,4 @@
-package com.github.dao;
+package com.github.dao.user;
 
 import com.github.entity.UserDO;
 import org.apache.ibatis.annotations.MapKey;
@@ -16,7 +16,6 @@ import java.util.Set;
  * function:
  * 运行结果在test文件夹中存放
  */
-@Repository
 public interface UserDAO {
 
     /**

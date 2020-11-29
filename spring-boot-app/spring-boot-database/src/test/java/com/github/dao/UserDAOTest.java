@@ -1,6 +1,7 @@
 package com.github.dao;
 
 import com.github.SpringBootDatabaseApplicationTests;
+import com.github.dao.user.UserDAO;
 import com.github.entity.UserDO;
 import com.github.enums.UserState;
 import org.junit.Assert;

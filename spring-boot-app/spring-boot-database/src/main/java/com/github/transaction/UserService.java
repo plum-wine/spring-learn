@@ -1,6 +1,6 @@
 package com.github.transaction;
 
-import com.github.dao.UserDAO;
+import com.github.dao.user.UserDAO;
 import com.github.entity.UserDO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

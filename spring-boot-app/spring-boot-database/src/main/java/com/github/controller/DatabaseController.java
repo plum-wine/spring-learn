@@ -2,7 +2,7 @@ package com.github.controller;
 
 import com.github.config.CustomerDatabaseContextHolder;
 import com.github.entity.UserDO;
-import com.github.dao.UserDAO;
+import com.github.dao.user.UserDAO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

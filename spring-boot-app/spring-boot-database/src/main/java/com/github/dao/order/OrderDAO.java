@@ -1,13 +1,11 @@
-package com.github.dao;
+package com.github.dao.order;
 
 import com.github.entity.OrderDO;
 import org.apache.ibatis.annotations.Param;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Map;
 
-@Repository
 public interface OrderDAO {
 
     /**

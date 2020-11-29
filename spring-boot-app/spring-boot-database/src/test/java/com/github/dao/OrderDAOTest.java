@@ -1,6 +1,7 @@
 package com.github.dao;
 
 import com.github.SpringBootDatabaseApplicationTests;
+import com.github.dao.order.OrderDAO;
 import com.github.entity.OrderDO;
 import com.google.common.collect.Maps;
 import org.junit.Test;
