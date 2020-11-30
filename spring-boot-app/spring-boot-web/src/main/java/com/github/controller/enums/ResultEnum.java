@@ -23,9 +23,9 @@ public enum ResultEnum {
     // qos
     ACCESS_LIMIT("access qos", -10005);
 
-    private String msg;
+    private final String msg;
 
-    private Integer code;
+    private final Integer code;
 
     ResultEnum(String msg, Integer code) {
         this.msg = msg;
