@@ -24,9 +24,9 @@ public class OrderDAOTest extends SpringBootDatabaseApplicationTests {
     @Test
     public void selectAllByCondition() {
         Map<String, Object> condition = Maps.newHashMap();
-        condition.put("userId", 100L);
+        // condition.put("userId", 100L);
         List<OrderDO> orderDOS = orderDAO.selectAllByCondition(condition);
-        orderDOS.forEach(System.out::println);
+        orderDOS.forEach(orderDO -> LOGGER.info("order:{}", orderDO));
     }
 
     @Test
@@ -40,7 +40,7 @@ public class OrderDAOTest extends SpringBootDatabaseApplicationTests {
         orderDO.setOrderName("order name " + orderId);
         orderDO.setOrderStatus(1);
         orderDAO.insert(orderDO);
-        System.out.println(orderDO);
+        LOGGER.info("order:{}", orderDO);
     }
 
 }

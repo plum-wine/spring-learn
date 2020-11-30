@@ -1,4 +1,4 @@
-show databases;
+CREATE DATABASE IF NOT EXISTS `foobar`;
 use foobar;
 create table if not exists user
 (

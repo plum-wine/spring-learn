@@ -19,12 +19,6 @@
         <java.version>1.8</java.version>
     </properties>
 
-    <dependencyManagement>
-        <dependencies>
-
-        </dependencies>
-    </dependencyManagement>
-
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -45,11 +39,6 @@
             <artifactId>shardingsphere-jdbc-core</artifactId>
             <version>5.0.0-alpha</version>
         </dependency>
-        <!--        <dependency>-->
-        <!--            <groupId>org.apache.shardingsphere</groupId>-->
-        <!--            <artifactId>shardingsphere-jdbc-core-spring-boot-starter</artifactId>-->
-        <!--            <version>5.0.0-alpha</version>-->
-        <!--        </dependency>-->
     </dependencies>
 
     <build>
