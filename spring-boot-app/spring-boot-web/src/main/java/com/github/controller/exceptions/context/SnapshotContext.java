@@ -8,16 +8,19 @@ package com.github.controller.exceptions.context;
  */
 public class SnapshotContext {
 
-    private static final ThreadLocal<Object> threadLocal = new ThreadLocal<>();
+    private static final ThreadLocal<Object> THREAD_LOCAL = new ThreadLocal<>();
+
+    private SnapshotContext() {
+    }
 
     public static void set(Object snap) {
-        threadLocal.set(snap);
+        THREAD_LOCAL.set(snap);
     }
 
     public static Object get() {
-        Object result = threadLocal.get();
+        Object result = THREAD_LOCAL.get();
         // 防止ThreadLocal引发内存泄露
-        threadLocal.remove();
+        THREAD_LOCAL.remove();
         return result;
     }
 

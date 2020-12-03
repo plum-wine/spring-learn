@@ -1,17 +1,18 @@
 package com.github.controller.exceptions.handler;
 
-import com.github.controller.exceptions.context.SnapshotContext;
+import com.github.controller.domain.vo.BaseResult;
 import com.github.controller.enums.ResultEnum;
 import com.github.controller.exceptions.GlobalException;
-import com.github.controller.domain.vo.BaseResult;
-import lombok.extern.slf4j.Slf4j;
+import com.github.controller.exceptions.context.SnapshotContext;
+import com.github.controller.utils.JsonUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.List;
-import java.util.Map;
+import java.lang.invoke.MethodHandles;
 
 /**
  * @author hangs.zhang
@@ -22,20 +23,15 @@ import java.util.Map;
  * 就会寻找@ControllerAdvice修饰的类中的@ExceptionHandler修饰的方法进行异常处理
  */
 @ControllerAdvice
-@Slf4j
 public class GlobalExceptionHandler {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
     @ResponseBody
     @ExceptionHandler(value = Exception.class)
     public BaseResult<Object> exceptionHandler(Exception ex, HttpServletRequest request) {
         Object snap = SnapshotContext.get();
-        Map<String, String[]> parameterMap = request.getParameterMap();
-        // 打印发生异常的请求参数
-        parameterMap.forEach((key, value) -> log.error("error param {}:{}", key, value));
-        // 打印请求的路径，可以根据这个路径去在监控中mark
-        log.error("RequestURI {}", request.getRequestURI());
-        // 打印异常堆栈
-        log.error("exception", ex);
+        LOGGER.error("RequestURI:{}, Param:{}", request.getRequestURI(), JsonUtils.toJson(request.getParameterMap()), ex);
 
         // 如果快照数据存在，返回
         if (snap != null) {
@@ -49,20 +45,6 @@ public class GlobalExceptionHandler {
         } else {
             return BaseResult.error(ResultEnum.SERVER_INNER_ERROR);
         }
-    }
-
-    private String list2String(List<String> list) {
-        String prefix = "validate error : ";
-        StringBuilder content = new StringBuilder();
-        for (int i = 0, length = list.size(); i < length; i++) {
-            String str = list.get(i);
-            if (i == length - 1) {
-                content.append(str);
-            } else {
-                content.append(str).append(", ");
-            }
-        }
-        return prefix + content.toString();
     }
 
 }
