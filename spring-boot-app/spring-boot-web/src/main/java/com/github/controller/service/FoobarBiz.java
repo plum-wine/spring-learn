@@ -13,9 +13,9 @@ import org.springframework.stereotype.Service;
  * function:
  */
 @Service
-public class CommonBiz {
+public class FoobarBiz {
 
-    public String deal(final String data) {
+    public String bizMethod(final String data) {
         return new BizTemplate<String>(Monitors.inner_error) {
             @Override
             protected String process() throws GlobalException {
@@ -29,7 +29,7 @@ public class CommonBiz {
 
             @Override
             protected void checkParams() throws GlobalException {
-                if(StringUtils.isBlank(data)) {
+                if (StringUtils.isBlank(data)) {
                     throw new GlobalException("param check error, data is null");
                 }
             }

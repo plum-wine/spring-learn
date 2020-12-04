@@ -10,8 +10,9 @@ import com.github.controller.enums.ResultEnum;
 import com.github.controller.exceptions.GlobalException;
 import com.github.controller.domain.vo.BaseResult;
 import com.github.controller.domain.vo.UserVO;
-import com.github.controller.service.CommonBiz;
-import lombok.extern.slf4j.Slf4j;
+import com.github.controller.service.FoobarBiz;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.lang.invoke.MethodHandles;
 import java.util.Objects;
 
 /**
@@ -28,7 +30,6 @@ import java.util.Objects;
  * *****************
  * function:
  */
-@Slf4j
 @RestController
 @PropertySource("classpath:config.properties")
 public class HelloController {
@@ -42,23 +43,21 @@ public class HelloController {
     /**
      * 从配置文件中读取
      */
-    @Value("${test}")
-    private String test;
-
-    private final ApplicationConfig applicationConfig;
+    @Value("${config.key}")
+    private String config;
 
     @Autowired
-    private CommonBiz commonBiz;
+    private ApplicationConfig applicationConfig;
 
     @Autowired
-    public HelloController(ApplicationConfig applicationConfig) {
-        this.applicationConfig = applicationConfig;
-    }
+    private FoobarBiz foobarBiz;
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
     @ModelAttribute
-    public void common(HttpServletRequest request) {
-        log.info("在所有的方法执行前执行");
-        log.info(request.getRequestURL().toString());
+    public void before(HttpServletRequest request) {
+        LOGGER.info("execute before all method");
+        LOGGER.info("request url {}", request.getRequestURL());
     }
 
     @GetMapping("/hello")
@@ -119,15 +118,18 @@ public class HelloController {
      * @return BaseResult
      */
     @PostMapping("/user")
-    public BaseResult<?> user(@Valid @ModelAttribute UserVO user, BindingResult bindingResult) {
+    public BaseResult<Object> user(@Valid @ModelAttribute UserVO user, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return BaseResult.success(bindingResult.getAllErrors().get(0).getDefaultMessage());
         }
         user.setId(1);
-        log.info("user : {}", user);
+        LOGGER.info("user:{}", user);
         return BaseResult.success(user);
     }
 
+    /**
+     * 自定义session注解
+     */
     @GetMapping("/session")
     public BaseResult<UserVO> session(@Session UserVO userVO) {
         if (Objects.isNull(userVO)) {
@@ -137,19 +139,25 @@ public class HelloController {
         }
     }
 
+    /**
+     * 读取环境变量
+     */
     @GetMapping("/username")
     public String username() {
         return username;
     }
 
-    @GetMapping("/test")
+    /**
+     * 读取非application.properties的配置文件
+     */
+    @GetMapping("/config")
     public String test() {
-        return test;
+        return config;
     }
 
     @GetMapping("/biz")
     public String biz(@RequestParam String data) {
-        return commonBiz.deal(data);
+        return foobarBiz.bizMethod(data);
     }
 
 }

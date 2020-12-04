@@ -6,27 +6,20 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.lang.invoke.MethodHandles;
+
 @RestController
 public class EnvController {
 
-    private Logger LOGGER = LoggerFactory.getLogger(EnvController.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
     @Value("${env:default}")
     private String env;
-
-    @Value("${server.tomcat.basedir:default}")
-    private String basedir;
 
     @GetMapping("/env")
     public String env() {
         LOGGER.info("env:{}", env);
         return env;
-    }
-
-    @GetMapping("/basedir")
-    public String basedir() {
-        LOGGER.info("basedir:{}", basedir);
-        return basedir;
     }
 
 }

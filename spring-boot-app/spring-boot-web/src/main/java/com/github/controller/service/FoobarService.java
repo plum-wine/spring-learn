@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
  * function:
  */
 @Service
-public class CommonService {
+public class FoobarService {
 
     public String hello() {
         return "hello";
