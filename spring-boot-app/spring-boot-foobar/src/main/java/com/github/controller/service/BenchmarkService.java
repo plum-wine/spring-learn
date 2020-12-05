@@ -24,7 +24,7 @@ public class BenchmarkService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
-    private static final long SLEEP_TIME_300 = 300;
+    private static final long COST_TIME = 200;
 
     @Async
     public ListenableFuture<BaseResult<String>> listenableFutureAsync(boolean isCpuTask) {
@@ -45,7 +45,7 @@ public class BenchmarkService {
 
     public BaseResult<String> mockIOTask(String mark) {
         try {
-            TimeUnit.MILLISECONDS.sleep(SLEEP_TIME_300);
+            TimeUnit.MILLISECONDS.sleep(COST_TIME);
         } catch (InterruptedException e) {
             // do nothing
             LOGGER.error("mockTask error", e);
@@ -58,13 +58,11 @@ public class BenchmarkService {
      * 占同cpu 100ms
      */
     public BaseResult<String> mockCpuTask(String mark) {
-        int busyTime = 100;
         long startTime = System.currentTimeMillis();
-        // 占同cpu 100ms
-        while ((System.currentTimeMillis() - startTime) <= busyTime) {
+        // 占同cpu COST_TIME ms
+        while ((System.currentTimeMillis() - startTime) <= COST_TIME) {
             JsonUtils.toJson(new Object());
         }
-
         LOGGER.info("mark:{}", mark);
         return BaseResult.success(mark);
     }
