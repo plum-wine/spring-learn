@@ -4,18 +4,15 @@ import com.fasterxml.jackson.annotation.JsonView;
 import com.github.controller.annotations.AccessLimit;
 import com.github.controller.annotations.Session;
 import com.github.controller.aop.annotations.StatisticsTime;
-import com.github.controller.config.ApplicationConfig;
-import com.github.controller.exceptions.context.SnapshotContext;
-import com.github.controller.enums.ResultEnum;
-import com.github.controller.exceptions.GlobalException;
 import com.github.controller.domain.vo.BaseResult;
 import com.github.controller.domain.vo.UserVO;
+import com.github.controller.enums.ResultEnum;
+import com.github.controller.exceptions.GlobalException;
+import com.github.controller.exceptions.context.SnapshotContext;
 import com.github.controller.service.FoobarBiz;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,23 +28,7 @@ import java.util.Objects;
  * function:
  */
 @RestController
-@PropertySource("classpath:config.properties")
-public class HelloController {
-
-    /**
-     * 这个参数是pc的用户名
-     */
-    @Value("${user.name}")
-    private String username;
-
-    /**
-     * 从配置文件中读取
-     */
-    @Value("${config.key}")
-    private String config;
-
-    @Autowired
-    private ApplicationConfig applicationConfig;
+public class FoobarController {
 
     @Autowired
     private FoobarBiz foobarBiz;
@@ -81,11 +62,6 @@ public class HelloController {
     @GetMapping("/exception")
     public BaseResult<String> exception() {
         throw new GlobalException(ResultEnum.ACCESS_LIMIT);
-    }
-
-    @GetMapping("/config")
-    public BaseResult<ApplicationConfig> config() {
-        return BaseResult.success(applicationConfig);
     }
 
     /**
@@ -137,22 +113,6 @@ public class HelloController {
         } else {
             return BaseResult.success(userVO);
         }
-    }
-
-    /**
-     * 读取环境变量
-     */
-    @GetMapping("/username")
-    public String username() {
-        return username;
-    }
-
-    /**
-     * 读取非application.properties的配置文件
-     */
-    @GetMapping("/config")
-    public String test() {
-        return config;
     }
 
     @GetMapping("/biz")

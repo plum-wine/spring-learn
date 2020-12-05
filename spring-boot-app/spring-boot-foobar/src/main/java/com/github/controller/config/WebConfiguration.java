@@ -1,6 +1,6 @@
 package com.github.controller.config;
 
-import com.github.controller.SpringBootWebApplication;
+import com.github.controller.FoobarApplication;
 import com.github.controller.handler.SessionResolver;
 import com.github.controller.handler.interceptors.AccessInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +20,7 @@ import java.util.List;
  * @function: 继承了该类之后 所有web配置自动失效
  */
 @Configuration
-@ComponentScan(basePackageClasses = SpringBootWebApplication.class, useDefaultFilters = true)
+@ComponentScan(basePackageClasses = FoobarApplication.class, useDefaultFilters = true)
 public class WebConfiguration implements WebMvcConfigurer {
 
     private SessionResolver sessionResolver;

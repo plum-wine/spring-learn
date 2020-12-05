@@ -37,4 +37,5 @@
     <logger name="controllerLogger" additivity="false" level="INFO">
         <appender-ref ref="controllerLogger"/>
     </logger>
+
 </configuration>
