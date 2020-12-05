@@ -31,7 +31,7 @@ public class SessionResolver implements HandlerMethodArgumentResolver {
         String token = nativeWebRequest.getParameter("token");
         userVO.setEmail(token);
         userVO.setId(1);
-        userVO.setUsername("hangs.zhang");
+        userVO.setUsername("foobar");
         userVO.setPassword("123456");
         return userVO;
     }

@@ -1,7 +1,5 @@
 package com.github.controller.aop.annotations;
 
-import java.lang.annotation.*;
-
 /**
  * @author hangs.zhang
  * @date 2018/7/25

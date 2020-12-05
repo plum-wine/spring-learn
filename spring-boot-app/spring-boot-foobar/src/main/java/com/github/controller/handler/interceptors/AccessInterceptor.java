@@ -1,8 +1,8 @@
 package com.github.controller.handler.interceptors;
 
 import com.github.controller.annotations.AccessLimit;
-import com.github.controller.enums.ResultEnum;
 import com.github.controller.domain.vo.BaseResult;
+import com.github.controller.enums.ResultEnum;
 import com.github.controller.utils.JsonUtils;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
