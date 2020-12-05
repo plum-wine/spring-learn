@@ -3,6 +3,7 @@ package com.github.controller.controller;
 import com.github.controller.domain.vo.BaseResult;
 import com.github.controller.service.BenchmarkService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.util.concurrent.ListenableFuture;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.async.DeferredResult;
 
+import javax.annotation.PostConstruct;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -32,10 +34,18 @@ import java.util.concurrent.Executors;
 @RequestMapping("/benchmark")
 public class BenchmarkController {
 
-    ExecutorService executors = Executors.newFixedThreadPool(500);
+    private ExecutorService executors;
+
+    @Value("${benchmark.thread.count}")
+    private Integer benchmarkThreadCount;
 
     @Autowired
     private BenchmarkService benchmarkService;
+
+    @PostConstruct
+    public void init() {
+        executors = Executors.newFixedThreadPool(benchmarkThreadCount);
+    }
 
     @GetMapping("/sync")
     public BaseResult<String> sync(@RequestParam(required = false, defaultValue = "false") boolean isCpuTask) {
