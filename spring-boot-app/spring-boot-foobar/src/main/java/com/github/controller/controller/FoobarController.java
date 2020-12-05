@@ -41,11 +41,6 @@ public class FoobarController {
         LOGGER.info("request url {}", request.getRequestURL());
     }
 
-    @GetMapping("/hello")
-    public BaseResult<String> hello() {
-        return BaseResult.success("hello springboot");
-    }
-
     @StatisticsTime("prefix")
     @GetMapping("/statisticsTime")
     public BaseResult<String> statisticsTime() {
@@ -53,10 +48,13 @@ public class FoobarController {
     }
 
     @GetMapping("/snapshot")
-    public BaseResult<String> snapshot() {
+    public BaseResult<String> snapshot(@RequestParam(required = false, defaultValue = "true") boolean isUseSnapshot) {
         String data = "这是一份快照数据";
         SnapshotContext.set(data);
-        throw new RuntimeException();
+        if (isUseSnapshot) {
+            throw new GlobalException("UseSnapshot");
+        }
+        return BaseResult.success();
     }
 
     @GetMapping("/exception")

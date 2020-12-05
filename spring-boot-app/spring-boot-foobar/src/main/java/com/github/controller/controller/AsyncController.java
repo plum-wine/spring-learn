@@ -1,11 +1,15 @@
 package com.github.controller.controller;
 
 import com.github.controller.domain.vo.BaseResult;
+import com.github.controller.service.FoobarService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.concurrent.ListenableFuture;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.async.DeferredResult;
 
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -20,39 +24,33 @@ import java.util.concurrent.Executors;
 public class AsyncController {
 
     /**
-     * 测试1000的并发
+     * 1000的线程数量
      */
     ExecutorService executors = Executors.newFixedThreadPool(1000);
 
-    /**
-     * 3s
-     */
-    private static final long SLEEP_TIME_3000 = 3000;
-
-    /**
-     * 300ms
-     */
-    private static final long SLEEP_TIME_300 = 300;
+    @Autowired
+    private FoobarService foobarService;
 
     @GetMapping("/sync")
     public BaseResult<String> sync() {
-        return mockTask("sync");
+        return foobarService.mockTask("sync");
     }
 
     @GetMapping("/deferredResultAsync")
     public DeferredResult<BaseResult<String>> deferredResultAsync() {
         DeferredResult<BaseResult<String>> deferredResult = new DeferredResult<>();
-        executors.submit(() -> deferredResult.setResult(mockTask("deferredResultAsync")));
+        executors.submit(() -> deferredResult.setResult(foobarService.mockTask("deferredResultAsync")));
         return deferredResult;
     }
 
-    public BaseResult<String> mockTask(String mark) {
-        try {
-            Thread.sleep(SLEEP_TIME_300);
-        } catch (InterruptedException e) {
-            // do nothing
-        }
-        return BaseResult.success(mark);
+    @GetMapping("/async1")
+    public ListenableFuture<BaseResult<String>> async1() {
+        return foobarService.async1();
+    }
+
+    @GetMapping("/async2")
+    public CompletableFuture<BaseResult<String>> async2() {
+        return foobarService.async2();
     }
 
 }

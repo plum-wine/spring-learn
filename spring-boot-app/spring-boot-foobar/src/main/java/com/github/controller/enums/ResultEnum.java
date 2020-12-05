@@ -19,9 +19,7 @@ public enum ResultEnum {
     LOGIN_VO_NULL("login vo is null", -10002),
     LOGIN_PASS_ERROR("pass error", -10003),
     LOGIN_MOBILE_NOT_EXIST("mobile not exist", -10004),
-
-    // qos
-    ACCESS_LIMIT("access qos", -10005);
+    ACCESS_LIMIT("access limit", -10005);
 
     private final String msg;
 

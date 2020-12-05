@@ -1,7 +1,16 @@
 package com.github.controller.service;
 
-import com.github.controller.domain.vo.UserVO;
+import com.github.controller.domain.vo.BaseResult;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.stereotype.Service;
+import org.springframework.util.concurrent.ListenableFuture;
+
+import java.lang.invoke.MethodHandles;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author hangs.zhang
@@ -12,29 +21,29 @@ import org.springframework.stereotype.Service;
 @Service
 public class FoobarService {
 
-    public String hello() {
-        return "hello";
+    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
+
+    private static final long SLEEP_TIME_300 = 300;
+
+    @Async
+    public ListenableFuture<BaseResult<String>> async1() {
+        return AsyncResult.forValue(mockTask("@Async.async.ListenableFuture"));
     }
 
-    public UserVO getUserVO() {
-        UserVO userVO = new UserVO();
-        userVO.setId(1);
-        userVO.setEmail("foobar@foobar.com");
-        userVO.setUsername("foobar");
-        userVO.setPassword("foobar");
-        return userVO;
+    @Async
+    public CompletableFuture<BaseResult<String>> async2() {
+        return AsyncResult.forValue(mockTask("@Async.async.CompletableFuture")).completable();
     }
 
-    public String test() {
-        return "test";
-    }
-
-    public Integer id(Integer id) {
-        return id;
-    }
-
-    public String name(String name) {
-        return name;
+    public BaseResult<String> mockTask(String mark) {
+        try {
+            TimeUnit.MILLISECONDS.sleep(SLEEP_TIME_300);
+        } catch (InterruptedException e) {
+            // do nothing
+            LOGGER.error("mockTask error", e);
+        }
+        LOGGER.info("mark:{}", mark);
+        return BaseResult.success(mark);
     }
 
 }
