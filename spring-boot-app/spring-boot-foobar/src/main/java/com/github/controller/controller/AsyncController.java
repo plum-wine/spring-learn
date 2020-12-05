@@ -19,7 +19,10 @@ import java.util.concurrent.Executors;
 @RequestMapping("/benchmark")
 public class AsyncController {
 
-    ExecutorService executors = Executors.newFixedThreadPool(200);
+    /**
+     * 测试1000的并发
+     */
+    ExecutorService executors = Executors.newFixedThreadPool(1000);
 
     /**
      * 3s
