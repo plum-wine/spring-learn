@@ -18,6 +18,8 @@ import java.util.concurrent.Executors;
  * @date 2020/12/5 10:21 上午
  * *****************
  * function:
+ * 从JMeter压测的结果来看, DeferredResult和tomcat自带的nio在设置同样线程数量的情况下性能差不多
+ * Spring @Async注解就差很多了, 不知道是什么地方的问题
  */
 @RestController
 @RequestMapping("/benchmark")
