@@ -1,7 +1,6 @@
 package com.github.controller.service;
 
 import com.github.controller.domain.vo.BaseResult;
-import com.github.controller.domain.vo.UserVO;
 import com.github.controller.utils.JsonUtils;
 import com.google.common.base.Stopwatch;
 import org.slf4j.Logger;
@@ -13,7 +12,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.concurrent.ListenableFuture;
 
 import java.lang.invoke.MethodHandles;
-import java.util.Random;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.TimeUnit;
@@ -72,14 +72,13 @@ public class BenchmarkService {
      */
     private BaseResult<String> mockIOAndCpuTask(String mark) {
         long startTime = System.currentTimeMillis();
-        // 占同cpu COST_TIME ms
+        // 占同cpu benchmarkTaskTime ms
         while ((System.currentTimeMillis() - startTime) <= benchmarkTaskTime) {
-            UserVO userVO = new UserVO();
-            userVO.setPassword(UUID.randomUUID().toString());
-            userVO.setUsername(UUID.randomUUID().toString());
-            userVO.setId(new Random().nextInt());
+            Map<String, String> map = new HashMap<>();
+            map.put(UUID.randomUUID().toString(), UUID.randomUUID().toString());
+            map.put(UUID.randomUUID().toString(), UUID.randomUUID().toString());
             // 欺骗编译器, 不输出到控制台
-            LOGGER.debug(JsonUtils.toJson(userVO));
+            LOGGER.debug(JsonUtils.toJson(map));
         }
         LOGGER.info("Cpu Task Mark:{}", mark);
         return BaseResult.success(mark);
@@ -87,11 +86,11 @@ public class BenchmarkService {
 
     /**
      * 一段纯计算的任务, 无论是否分配cpu时间, 计算量都固定
-     * 在6c的Mac机器上, 单线程的情况下, 耗时100ms左右
+     * 在6c的Mac机器上, 单线程计算一次, 耗时18ms在左右
      */
     private BaseResult<String> mockCpuTask(String mark) {
         int num = 0;
-        int firstCycle = 1150;
+        int firstCycle = 500;
         int secondCycle = firstCycle * 100;
         for (int i = 0; i < firstCycle; i++) {
             for (int j = 0; j < secondCycle; j++) {
