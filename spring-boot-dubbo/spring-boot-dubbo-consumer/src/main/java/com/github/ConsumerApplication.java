@@ -20,13 +20,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @SpringBootApplication
 @RequestMapping("/application")
-public class ComsumerApplication {
+public class ConsumerApplication {
 
     @Reference(version = "${user.service.version}")
     private UserService userService;
 
     public static void main(String[] args) {
-        SpringApplication.run(ComsumerApplication.class, args);
+        SpringApplication.run(ConsumerApplication.class, args);
     }
 
     @GetMapping("/user")
